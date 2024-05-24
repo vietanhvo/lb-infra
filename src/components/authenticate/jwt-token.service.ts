@@ -4,7 +4,7 @@ import { BindingScope, inject, injectable } from '@loopback/core';
 import jwt from 'jsonwebtoken';
 
 import { securityId } from '@loopback/security';
-import { JWTTokenPayload } from '@/common/types';
+import { AuthenticationTokenData } from '@/common/types';
 import { BaseService } from '@/base/base.service';
 import { AuthenticateKeys, Authentication } from '@/common';
 import { decrypt, encrypt, getError } from '@/utilities';
@@ -45,7 +45,7 @@ export class JWTTokenService extends BaseService {
   }
 
   // --------------------------------------------------------------------------------------
-  encryptPayload(payload: JWTTokenPayload) {
+  encryptPayload(payload: AuthenticationTokenData) {
     const userKey = encrypt('userId', this.applicationSecret);
     const rolesKey = encrypt('roles', this.applicationSecret);
 
@@ -61,7 +61,7 @@ export class JWTTokenService extends BaseService {
   }
 
   // --------------------------------------------------------------------------------------
-  decryptPayload(decodedToken: any): JWTTokenPayload {
+  decryptPayload(decodedToken: any): AuthenticationTokenData {
     const rs: any = {};
 
     for (const encodedAttr in decodedToken) {
@@ -91,7 +91,7 @@ export class JWTTokenService extends BaseService {
   }
 
   // --------------------------------------------------------------------------------------
-  verify(opts: { type: string; token: string }): JWTTokenPayload {
+  verify(opts: { type: string; token: string }): AuthenticationTokenData {
     const { token } = opts;
     if (!token) {
       this.logger.error('[verify] Missing token for validating request!');
@@ -110,7 +110,7 @@ export class JWTTokenService extends BaseService {
   }
 
   // --------------------------------------------------------------------------------------
-  generate(payload: JWTTokenPayload): string {
+  generate(payload: AuthenticationTokenData): string {
     if (!payload) {
       throw new HttpErrors.Unauthorized('Error generating token : userProfile is null');
     }

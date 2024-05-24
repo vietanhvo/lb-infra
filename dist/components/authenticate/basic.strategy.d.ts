@@ -10,5 +10,5 @@ export declare class BasicAuthenticationStrategy implements AuthenticationStrate
         username: string;
         password: string;
     };
-    authenticate(request: Request): Promise<any>;
+    authenticate(request: Request): Promise<import("../../common").AuthenticationTokenData>;
 }

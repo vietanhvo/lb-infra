@@ -107,9 +107,24 @@ export type MigrationProcess = {
 };
 
 // ----------------------------------------------------------------------------------------------------------------------------------------
-export interface JWTTokenPayload extends UserProfile {
+export interface AuthenticationTokenPayload {
   userId: IdType;
   roles: { id: IdType; identifier: string; priority: number }[];
 }
 
-export interface TokenPayload extends JWTTokenPayload {}
+// ----------------------------------------------------------------------------------------------------------------------------------------
+export interface AuthenticationTokenData extends UserProfile, AuthenticationTokenPayload {}
+
+export interface TokenPayload extends AuthenticationTokenData {}
+
+// ----------------------------------------------------------------------------------------------------------------------------------------
+export interface BasicAuthenticationPayload {
+  identifier: {
+    scheme: string;
+    value: string;
+  };
+  credential: {
+    scheme: string;
+    value: string;
+  };
+}

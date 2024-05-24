@@ -5,7 +5,7 @@ import { HttpErrors, Request } from '@loopback/rest';
 import { BasicTokenService } from './basic-token.service';
 
 export class BasicAuthenticationStrategy implements AuthenticationStrategy {
-  name = Authentication.TYPE_BASIC;
+  name = Authentication.STRATEGY_BASIC;
 
   constructor(@inject('services.BasicTokenService') private service: BasicTokenService) {}
 
@@ -33,7 +33,6 @@ export class BasicAuthenticationStrategy implements AuthenticationStrategy {
 
   async authenticate(request: Request) {
     const credential = this.extractCredentials(request);
-    const rs = await this.service.verify(credential);
-    return rs;
+    return this.service.verify(credential);
   }
 }

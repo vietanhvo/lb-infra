@@ -1,4 +1,4 @@
-import { JWTTokenPayload } from '../../common/types';
+import { AuthenticationTokenData } from '../../common/types';
 import { BaseService } from '../../base/base.service';
 export declare class JWTTokenService extends BaseService {
     private applicationSecret;
@@ -11,13 +11,13 @@ export declare class JWTTokenService extends BaseService {
         type: string;
         token: string;
     };
-    encryptPayload(payload: JWTTokenPayload): {
+    encryptPayload(payload: AuthenticationTokenData): {
         [x: string]: string;
     };
-    decryptPayload(decodedToken: any): JWTTokenPayload;
+    decryptPayload(decodedToken: any): AuthenticationTokenData;
     verify(opts: {
         type: string;
         token: string;
-    }): JWTTokenPayload;
-    generate(payload: JWTTokenPayload): string;
+    }): AuthenticationTokenData;
+    generate(payload: AuthenticationTokenData): string;
 }

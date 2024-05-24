@@ -29,7 +29,7 @@ const basic_token_service_1 = require("./basic-token.service");
 let BasicAuthenticationStrategy = class BasicAuthenticationStrategy {
     constructor(service) {
         this.service = service;
-        this.name = common_1.Authentication.TYPE_BASIC;
+        this.name = common_1.Authentication.STRATEGY_BASIC;
     }
     extractCredentials(request) {
         if (!request.headers.authorization) {
@@ -51,8 +51,7 @@ let BasicAuthenticationStrategy = class BasicAuthenticationStrategy {
     authenticate(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const credential = this.extractCredentials(request);
-            const rs = yield this.service.verify(credential);
-            return rs;
+            return this.service.verify(credential);
         });
     }
 };
